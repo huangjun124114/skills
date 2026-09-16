@@ -12,7 +12,7 @@
 |---|---|---|
 | [brand-audit-expert](skills/brand-audit-expert/) | 品牌营销全链路审计专家 —— 四维 12 项指标体检 + 根因访谈，输出《品牌现状诊断书》 | — |
 | [content-ops-automation](skills/content-ops-automation/) | 通用内容自动化运营框架 —— 采集→选题→创作→润色→审批→发布→复盘七阶段流水线 | 4.2 |
-| [course-notes-html-report](skills/course-notes-html-report/) | 培训课程多源材料（录音转写、纪要、课件、研报）整合为 HTML 报告 | — |
+| [course-notes-html-report](skills/course-notes-html-report/) | 培训课程多源材料（录音转写、纪要、课件、研报）还原为可二次输出的 HTML 报告 —— 四档忠实度标注 + 照片双轨制 | 2.0.0 |
 | [doc-archive-organizer](skills/doc-archive-organizer/) | 大规模历史文档归档的知识化 —— 只读诊断 → 搬迁去重 → 三层知识索引 | — |
 | [feishu-doc-to-markdown](skills/feishu-doc-to-markdown/) | 飞书云文档（wiki / docx）导出为可独立分发的本地 markdown，附件本地化 | — |
 | [html-data-report](skills/html-data-report/) | 自包含深色主题 HTML 数据分析报告构建与视觉验证（含窄屏溢出检测） | — |

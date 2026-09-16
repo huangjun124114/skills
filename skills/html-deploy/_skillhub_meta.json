@@ -1,0 +1,20 @@
+{
+  "name": "HTML Deploy",
+  "installedAt": 1789395413514,
+  "source": "marketplace",
+  "version": "1.3.1",
+  "skillId": "skill_2054901495867834368",
+  "examples_zh": [
+    "把这个 HTML 发布成一个可以分享的链接",
+    "帮我把这份 HTML 报告部署到网页上",
+    "生成一个二维码可分享的页面链接"
+  ],
+  "examples_en": [
+    "Publish this HTML as a shareable link",
+    "Deploy this HTML report to a live webpage",
+    "Create a shareable live link for this single-page demo"
+  ],
+  "description_zh": "将单文件 HTML 快速发布为可分享公网链接",
+  "description_en": "Publish self-contained HTML pages to htmlcode.fun for live links",
+  "iconSource": "letter:auto"
+}

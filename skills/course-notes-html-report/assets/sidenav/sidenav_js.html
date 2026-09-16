@@ -1,0 +1,158 @@
+<script>
+/* ===========================================================
+   v2：左侧常驻导航交互
+   1) 滚动跟随高亮（scroll spy）——滚到哪个模块，哪一项高亮
+   2) 点击平滑定位 + 锚点写回地址栏
+   3) 侧栏内自动把激活项保持在可视范围（最小滚动原则）
+   4) 阅读进度条
+   5) 窄屏抽屉开合（按钮 / 遮罩 / Esc）
+   纯原生 JS，无任何外部依赖
+   =========================================================== */
+(function () {
+  var body = document.body;
+  var side = document.getElementById('sidebar');
+  if (!side) return;
+
+  var anchors = [].slice.call(side.querySelectorAll('a[href^="#"]'));
+  var links   = [].slice.call(side.querySelectorAll('a.snav'));
+  var inner   = side.querySelector('.side-scroll');
+  var bar     = side.querySelector('.side-prog i');
+  var btn     = document.querySelector('.sidenav-btn');
+  var mask    = document.querySelector('.sidenav-mask');
+
+  /* ---------- 建立 锚点 → 导航项 映射 ---------- */
+  var map = {}, secs = [];
+  links.forEach(function (a) {
+    var id = (a.getAttribute('href') || '').slice(1);
+    var el = id && document.getElementById(id);
+    if (el) { map[id] = a; a.setAttribute('data-sec', id); secs.push(el); }
+  });
+  secs.sort(function (a, b) { return a.offsetTop - b.offsetTop; });
+
+  var cur = '', lock = 0;
+
+  /* ---------- 把激活项留在侧栏可视区（最小滚动量） ---------- */
+  function reveal(a) {
+    if (!inner) return;
+    var r = a.getBoundingClientRect(), ir = inner.getBoundingClientRect();
+    var pad = 12, d = 0;
+    if (r.top < ir.top + pad) d = r.top - (ir.top + pad);
+    else if (r.bottom > ir.bottom - pad) d = r.bottom - (ir.bottom - pad);
+    if (!d) return;
+    var t = inner.scrollTop + d;
+    try { inner.scrollTo({ top: t, behavior: 'smooth' }); }
+    catch (e) { inner.scrollTop = t; }
+  }
+
+  function setActive(id) {
+    if (id === cur) return;
+    var prev = map[cur];
+    if (prev) { prev.classList.remove('on'); prev.removeAttribute('aria-current'); }
+    cur = id;
+    var a = map[id];
+    if (a) {
+      a.classList.add('on');
+      a.setAttribute('aria-current', 'true');
+      reveal(a);
+    }
+  }
+
+  /* ---------- 滚动跟随 ---------- */
+  function spy() {
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var doc = document.documentElement;
+    var max = Math.max(0, doc.scrollHeight - window.innerHeight);
+
+    if (bar) bar.style.width = (max > 0 ? (y / max * 100) : 0).toFixed(2) + '%';
+
+    if (Date.now() < lock) return;          /* 点击跳转期间不抢高亮 */
+    if (!secs.length) return;
+
+    /* 取第一条 top 已越过探针线的 section */
+    var probe = y + Math.min(window.innerHeight * 0.30, 260);
+    var id = secs[0].id;
+    for (var i = 0; i < secs.length; i++) {
+      var top = secs[i].getBoundingClientRect().top + y;
+      if (top <= probe) id = secs[i].id; else break;
+    }
+    /* 触底时锁定最后一节 */
+    if (max > 0 && y >= max - 2) id = secs[secs.length - 1].id;
+    setActive(id);
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    var ran = false;
+    function done() { if (ran) return; ran = true; spy(); ticking = false; }
+    /* rAF 优先（跟随合成帧，最省），但在后台标签页 / 嵌入环境 / 无头渲染下
+       rAF 可能被节流或暂停，因此挂一个定时兜底，确保高亮始终跟得上 */
+    if (window.requestAnimationFrame) requestAnimationFrame(done);
+    setTimeout(done, 60);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', spy);
+  spy();
+
+  /* ---------- 跳转 ---------- */
+  function jump(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var y = el.getBoundingClientRect().top +
+            (window.pageYOffset || document.documentElement.scrollTop || 0) - 16;
+    lock = Date.now() + 900;
+    try { window.scrollTo({ top: y, behavior: 'smooth' }); }
+    catch (e) { window.scrollTo(0, y); }
+    if (map[id]) setActive(id);
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    setTimeout(function () { lock = 0; spy(); }, 920);
+  }
+
+  function goTop() {
+    lock = Date.now() + 900;
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    catch (e) { window.scrollTo(0, 0); }
+    setActive('');
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    setTimeout(function () { lock = 0; spy(); }, 920);
+  }
+
+  function closeNav() { body.classList.remove('nav-open'); }
+  function toggleNav() { body.classList.toggle('nav-open'); }
+
+  anchors.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = (a.getAttribute('href') || '').slice(1);
+      if (!id || !document.getElementById(id)) return;
+      e.preventDefault();
+      closeNav();
+      if (id === 'top') { goTop(); return; }
+      jump(id);
+    });
+  });
+
+  if (btn) btn.addEventListener('click', toggleNav);
+  if (mask) mask.addEventListener('click', closeNav);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' || e.keyCode === 27) closeNav();
+  });
+
+  /* 从窄屏拉宽时，收掉抽屉状态 */
+  var mq = window.matchMedia('(min-width:1101px)');
+  function onMq() { if (mq.matches) closeNav(); }
+  if (mq.addEventListener) mq.addEventListener('change', onMq);
+  else if (mq.addListener) mq.addListener(onMq);
+
+  /* 带 #hash 打开时，直接定位到该节 */
+  if (location.hash && location.hash.length > 1) {
+    var t = document.getElementById(location.hash.slice(1));
+    if (t) setTimeout(function () {
+      try { window.scrollTo({ top: t.getBoundingClientRect().top + (window.pageYOffset || 0) - 16, behavior: 'auto' }); }
+      catch (e) {}
+    }, 60);
+  }
+})();
+
+</script>

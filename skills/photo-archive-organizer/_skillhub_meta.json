@@ -1,0 +1,53 @@
+{
+  "name": "photo-archive-organizer",
+  "slug": "photo-archive-organizer",
+  "title": "家庭相册整理专家",
+  "display_name": "家庭相册整理专家",
+  "display_name_en": "Photo Archive Organizer",
+  "version": "2.0.0",
+  "source": "skillhub",
+  "author": "基于 6,763 张家庭照片实战整理沉淀",
+  "description_zh": "把散乱照片整理成「YYYYMM-事件名」结构化相册，支持合并共享与筛选精选两种模式",
+  "description_en": "Organize messy photo collections into a structured YYYYMM-event archive, with merge-all and filter-best modes",
+  "long_description_zh": "手机、相机、微信、网盘积攒的数千张照片，文件名无意义、缺 EXIF、跨年月混杂、夹着截图票据。本技能把整理过程变成一条可复现、可校验、可回滚的流水线：五层客观信号推断日期（覆盖率 97.7%，绝不使用文件修改时间）、Ward 聚类切分事件、质量加权精选、无视觉方案的内容语义清理（用上一轮成果自标注训练判别器，AUC 0.85-0.87）、六道检验闸门、全程可回滚。已在一个真实的 6763 张家庭照片项目上完整跑通，产出 2545 张精选照片 / 100 个事件文件夹。",
+  "long_description_en": "Turns thousands of unorganised photos into a structured, verifiable archive. Five-layer date inference (97.7% coverage, never uses mtime/ctime), Ward clustering into events, weighted quality ranking, vision-free semantic cleanup (self-labelled classifier, AUC 0.85-0.87), six verification gates, and full rollback. Validated end-to-end on a real 6,763-photo family archive.",
+  "examples_zh": [
+    "帮我把手机导出的照片按年月整理成相册",
+    "这个文件夹里有几千张照片，挑出好看的按事件分类",
+    "删掉照片里的培训截图和会议照",
+    "把几个人的照片合并成一个家庭相册",
+    "照片没有拍摄日期，帮我推断出来",
+    "这些连拍太多了，每组只留最好的几张"
+  ],
+  "examples_en": [
+    "Organize my exported phone photos by year and month",
+    "Pick the best shots from thousands of photos and group them by event",
+    "Remove work training screenshots and meeting photos from my album",
+    "Merge several people's photo folders into one family album",
+    "These photos have no EXIF date — help me infer it",
+    "Too many burst shots, keep only the best few per scene"
+  ],
+  "tags": [
+    "照片整理",
+    "相册归档",
+    "家庭相册",
+    "图片分类",
+    "去重",
+    "Python",
+    "photo",
+    "album",
+    "archive"
+  ],
+  "iconSource": "_icon.png",
+  "iconLocalPath": "_icon.png",
+  "requirements": [
+    "Python 3.10+",
+    "Pillow",
+    "pillow-heif",
+    "numpy",
+    "scikit-learn"
+  ],
+  "repository": "",
+  "homepage": "",
+  "license": "MIT"
+}

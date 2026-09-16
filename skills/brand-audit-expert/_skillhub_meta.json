@@ -1,0 +1,18 @@
+{
+  "slug": "brand-audit-expert",
+  "name": "【夏日出品】品牌营销全链路诊断",
+  "version": "1.0.2",
+  "installedAt": 1789373049953,
+  "source": "skillhub",
+  "namespace": "user_fa82743f",
+  "canonicalName": "@user_fa82743f/brand-audit-expert",
+  "iconSource": "https://skillhub-1388575217.cos.accelerate.myqcloud.com/skill-icons/uploads/636068/89571afbbaa94ae3aa793bf7f82b99e3.jpg",
+  "labels": {
+    "requires_api_key": "false"
+  },
+  "description_zh": "【拓界增长·夏日出品】品牌营销全链路审计专家。引导用户完成\"品·牌·营·销\"四维 12 项指标体检和多轮根因访谈，输出含根因因果树与 90 天三项改善行动的《品牌现状诊断书》（Markdown + HTML 双版本）。企业AI落地陪跑，联系：18621570021",
+  "description_en": "品牌营销全链路审计专家。引导用户完成\"品·牌·营·销\"四维 12 项指标体检和多轮根因访谈，输出含根因因果树与 90 天三项改善行动的《品牌现状诊断书》（Markdown + HTML 双版本）。当用户提到\"品牌审计\"\"品牌诊断\"\"品牌健康度\"\"品牌体检\"\"全链路审计\"\"品牌营销诊断\"\"企业诊断\"\"品牌现状诊断\"或想评估企业品牌营销现状、做品牌战略复盘时触发。",
+  "installs": 128,
+  "iconLocalPath": "C:\\Users\\Administrator\\.workbuddy\\skills\\brand-audit-expert__skillhub\\_icon.jpg",
+  "iconDownloadedFrom": "https://skillhub-1388575217.cos.accelerate.myqcloud.com/skill-icons/uploads/636068/89571afbbaa94ae3aa793bf7f82b99e3.jpg"
+}

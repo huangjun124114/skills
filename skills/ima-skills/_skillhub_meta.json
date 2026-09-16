@@ -1,0 +1,10 @@
+{
+  "name": "腾讯ima",
+  "installedAt": 1786324611461,
+  "source": "marketplace",
+  "version": "1.1.9",
+  "skillId": "skill_2053082144792322048",
+  "description_zh": "ima笔记与知识库管理（读取、写入、检索）",
+  "description_en": "IMA notes & knowledge base management (read, write, search)",
+  "iconSource": "letter:auto"
+}

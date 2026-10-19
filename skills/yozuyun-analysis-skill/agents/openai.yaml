@@ -1,0 +1,5 @@
+interface:
+  display_name: "业务报表分析"
+  short_description: "自动适配多个业务系统 MCP，完成报表问数、指标分析和报告输出"
+  default_prompt: "使用 $yozuyun-analysis-skill 连接业务系统 MCP，并按受控报表契约回答我的数据问题。"
+
